@@ -955,6 +955,18 @@ public class CodeAnalyzer extends NodeVisitor {
         nodeBuilder.properties().endNestedProperty(Property.ValueType.REPEATABLE_PROPERTY,
                 WaitDataBuilder.DATA_WAITS_KEY, WaitDataBuilder.DATA_WAITS_LABEL, WaitDataBuilder.DATA_WAITS_DOC,
                 WaitDataBuilder.getDataWaitSchema(), false, false);
+
+        // Set dynamic label and description based on the actual data wait entries
+        if (!entries.isEmpty()) {
+            String label = "Wait for " + entries.stream()
+                    .map(DataWaitEntry::dataName)
+                    .collect(Collectors.joining(" & "));
+            String description = entries.stream()
+                    .map(DataWaitEntry::variableName)
+                    .filter(v -> !v.isBlank())
+                    .collect(Collectors.joining(", "));
+            nodeBuilder.metadata().label(label).description(description);
+        }
     }
 
     private record DataWaitEntry(String variableName, String dataType, String dataName) {

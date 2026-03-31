@@ -461,8 +461,8 @@
       {
         "id": "63666",
         "metadata": {
-          "label": "Wait for Data",
-          "description": "Wait for workflow data to be received"
+          "label": "Wait for approve",
+          "description": "approval"
         },
         "codedata": {
           "node": "WAIT_DATA",
